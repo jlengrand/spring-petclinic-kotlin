@@ -28,3 +28,5 @@ jobs:
       run: ./gradlew koverReport
     - name: Check coverage metrics
       run: ./gradlew koverVerify
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v2
