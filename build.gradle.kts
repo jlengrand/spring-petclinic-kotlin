@@ -15,6 +15,9 @@ plugins {
     id("com.google.cloud.tools.jib") version "3.1.4"
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
+    id("org.jetbrains.kotlinx.kover") version "0.4.2"
+    id("org.barfuin.gradle.taskinfo") version "1.3.1"
+
 }
 
 val boostrapVersion = "3.3.6"
@@ -71,5 +74,15 @@ jib {
     to {
         image = "springcommunity/spring-petclinic-kotlin"
         tags = setOf(project.version.toString(), "latest")
+    }
+}
+
+tasks.koverVerify {
+    rule {
+        name = "Minimal line coverage rate in percents"
+        bound {
+            minValue = 98
+            // valueType is kotlinx.kover.api.VerificationValueType.COVERED_LINES_PERCENTAGE by default
+        }
     }
 }
